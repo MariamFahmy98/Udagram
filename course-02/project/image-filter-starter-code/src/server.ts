@@ -1,9 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import fs from 'fs';
-import path from 'path';
-var validator = require('validator');
-var onFinished = require('on-finished');
+import { Request, Response } from 'express';
 import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
 (async () => {
@@ -18,8 +15,8 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
   app.use(bodyParser.json());
 
   // GET /filteredimage?image_url={{URL}}
-  app.get( "/filteredimage", async (request, response) => {
-    const { image_url } = request.query;
+  app.get( "/filteredimage", async (request: Request, response: Response) => {
+    const { image_url } :{image_url:string} = request.query;
 
     if (!image_url) {
       response.status(400).send('No image url provided');
